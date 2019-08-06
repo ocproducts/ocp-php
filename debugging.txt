@@ -1,0 +1,6 @@
+gdb broken under mavericks, but can use lldb...
+
+lldb
+file sapi/cli/php
+process launch -- -r "echo  22.0 / 3.0;"
+bt

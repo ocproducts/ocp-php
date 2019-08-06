@@ -1,0 +1,36 @@
+The following macros/functions allow an extra parameter for specifying escaping...
+
+ZVAL_STRING
+ZVAL_STRINGL
+RETVAL_STRING
+RETVAL_STRINGL
+RETURN_STRING
+RETURN_STRINGL
+RETURN_STR
+RETVAL_STR
+add_assoc_string_ex
+add_assoc_stringl_ex
+add_assoc_str
+add_assoc_string
+add_assoc_stringl
+add_index_string
+add_index_stringl
+add_next_index_string
+add_next_index_stringl
+add_get_assoc_string_ex
+add_get_assoc_stringl_ex
+add_get_index_string
+add_get_index_stringl
+add_property_string_ex
+add_property_stringl_ex
+zend_string_init
+zend_string_alloc
+zend_string_safe_alloc
+PHPWRITE
+PHPWRITE_H
+PUTC
+PUTC_H
+PUTS
+PUTS_H
+
+We suffix the escaping parameter accepting one with _xss.
