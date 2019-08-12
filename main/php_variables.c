@@ -798,6 +798,9 @@ static zend_bool php_auto_globals_create_created_files(zend_string *name)
 	array_init(&PG(http_globals)[TRACK_VARS_CREATED_FILES]);
 
 	zend_hash_update(&EG(symbol_table), name, &PG(http_globals)[TRACK_VARS_CREATED_FILES]);
+	Z_ADDREF(PG(http_globals)[TRACK_VARS_CREATED_FILES]);
+
+	HT_ALLOW_COW_VIOLATION(Z_ARRVAL(PG(http_globals)[TRACK_VARS_CREATED_FILES]));
 
 	return 0; /* don't rearm */
 }
@@ -808,6 +811,9 @@ static zend_bool php_auto_globals_create_modified_files(zend_string *name)
 	array_init(&PG(http_globals)[TRACK_VARS_MODIFIED_FILES]);
 
 	zend_hash_update(&EG(symbol_table), name, &PG(http_globals)[TRACK_VARS_MODIFIED_FILES]);
+	Z_ADDREF(PG(http_globals)[TRACK_VARS_MODIFIED_FILES]);
+
+	HT_ALLOW_COW_VIOLATION(Z_ARRVAL(PG(http_globals)[TRACK_VARS_MODIFIED_FILES]));
 
 	return 0; /* don't rearm */
 }
