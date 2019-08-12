@@ -51983,7 +51983,7 @@ ZEND_API void execute_ex(zend_execute_data *ex)
 			(void*)&&ZEND_IS_SMALLER_OR_EQUAL_SPEC_CV_TMPVAR_LABEL,
 			(void*)&&ZEND_NULL_LABEL,
 			(void*)&&ZEND_IS_SMALLER_OR_EQUAL_SPEC_CV_CV_LABEL,
-			(void*)&&ZEND_CAST_SPEC_CONST_LABEL,
+			//(void*)&&ZEND_CAST_SPEC_CONST_LABEL,	This messes with the type strictness detection, stops automatic disabling during casting code
 			(void*)&&ZEND_CAST_SPEC_TMP_LABEL,
 			(void*)&&ZEND_CAST_SPEC_VAR_LABEL,
 			(void*)&&ZEND_NULL_LABEL,

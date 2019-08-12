@@ -3393,8 +3393,7 @@ ZEND_API zend_long ZEND_FASTCALL zend_dval_to_lval_slow(double d)
 
 void ocp_type_strictness_error(const char* source)
 {
-	if (PG(type_strictness))
-	{
+	if (PG(type_strictness) == 1) {
 		//raise(SIGINT);
 
 		char msg[200];
