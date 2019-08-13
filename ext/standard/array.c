@@ -4584,6 +4584,9 @@ PHP_FUNCTION(array_unique)
 		return;
 	}
 
+	int bak = PG(type_strictness);
+	PG(type_strictness) = 0;
+
 	if (sort_type == PHP_SORT_STRING) {
 		HashTable seen;
 		zend_long num_key;
@@ -4619,12 +4622,11 @@ PHP_FUNCTION(array_unique)
 			}
 		} ZEND_HASH_FOREACH_END();
 
+		PG(type_strictness) = bak;
+
 		zend_hash_destroy(&seen);
 		return;
 	}
-
-	int bak = PG(type_strictness);
-	PG(type_strictness) = 0;
 
 	cmp = php_get_data_compare_func(sort_type, 0);
 
