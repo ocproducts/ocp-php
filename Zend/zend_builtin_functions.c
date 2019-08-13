@@ -736,7 +736,7 @@ ZEND_FUNCTION(error_reporting)
 
 	old_error_reporting = EG(error_reporting);
 	if (ZEND_NUM_ARGS() != 0) {
-		zend_string *new_val = zval_get_string(err);
+		zend_string *new_val = zval_get_string_noisy(err);
 		do {
 			zend_ini_entry *p = EG(error_reporting_ini_entry);
 
@@ -763,11 +763,7 @@ ZEND_FUNCTION(error_reporting)
 			}
 
 			p->value = new_val;
-			if (Z_TYPE_P(err) == IS_LONG) {
-				EG(error_reporting) = Z_LVAL_P(err);
-			} else {
-				EG(error_reporting) = atoi(ZSTR_VAL(p->value));
-			}
+			EG(error_reporting) = zval_get_long(err);
 		} while (0);
 	}
 
