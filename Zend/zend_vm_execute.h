@@ -3165,13 +3165,13 @@ static ZEND_VM_COLD ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_CONST_H
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long(expr));
+			ZVAL_LONG(result, zval_get_long_noisy(expr));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double(expr));
+			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string(expr));
+			ZVAL_STR(result, zval_get_string_noisy(expr));
 			break;
 		default:
 			if (IS_CONST & (IS_VAR|IS_CV)) {
@@ -18008,13 +18008,13 @@ static ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_TMP_HANDLER(ZEND_OPC
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long(expr));
+			ZVAL_LONG(result, zval_get_long_noisy(expr));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double(expr));
+			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string(expr));
+			ZVAL_STR(result, zval_get_string_noisy(expr));
 			break;
 		default:
 			if (IS_TMP_VAR & (IS_VAR|IS_CV)) {
@@ -21015,13 +21015,13 @@ static ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_VAR_HANDLER(ZEND_OPC
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long(expr));
+			ZVAL_LONG(result, zval_get_long_noisy(expr));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double(expr));
+			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string(expr));
+			ZVAL_STR(result, zval_get_string_noisy(expr));
 			break;
 		default:
 			if (IS_VAR & (IS_VAR|IS_CV)) {
@@ -37419,13 +37419,13 @@ static ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_CV_HANDLER(ZEND_OPCO
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long(expr));
+			ZVAL_LONG(result, zval_get_long_noisy(expr));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double(expr));
+			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string(expr));
+			ZVAL_STR(result, zval_get_string_noisy(expr));
 			break;
 		default:
 			if (IS_CV & (IS_VAR|IS_CV)) {
@@ -51983,7 +51983,7 @@ ZEND_API void execute_ex(zend_execute_data *ex)
 			(void*)&&ZEND_IS_SMALLER_OR_EQUAL_SPEC_CV_TMPVAR_LABEL,
 			(void*)&&ZEND_NULL_LABEL,
 			(void*)&&ZEND_IS_SMALLER_OR_EQUAL_SPEC_CV_CV_LABEL,
-			//(void*)&&ZEND_CAST_SPEC_CONST_LABEL,	This messes with the type strictness detection, stops automatic disabling during casting code
+			(void*)&&ZEND_CAST_SPEC_CONST_LABEL,
 			(void*)&&ZEND_CAST_SPEC_TMP_LABEL,
 			(void*)&&ZEND_CAST_SPEC_VAR_LABEL,
 			(void*)&&ZEND_NULL_LABEL,
