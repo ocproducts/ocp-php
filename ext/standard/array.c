@@ -5557,6 +5557,9 @@ PHP_FUNCTION(array_diff)
 		RETURN_NULL();
 	}
 
+	int bak = PG(type_strictness);
+	PG(type_strictness) = 0;
+
 	num = zend_hash_num_elements(Z_ARRVAL(args[0]));
 	if (num == 0) {
 		for (i = 1; i < argc; i++) {
@@ -5566,6 +5569,7 @@ PHP_FUNCTION(array_diff)
 			}
 		}
 		ZVAL_EMPTY_ARRAY(return_value);
+		PG(type_strictness) = bak;
 		return;
 	} else if (num == 1) {
 		int found = 0;
@@ -5584,6 +5588,7 @@ PHP_FUNCTION(array_diff)
 				}
 			}
 			ZVAL_EMPTY_ARRAY(return_value);
+			PG(type_strictness) = bak;
 			return;
 		}
 
@@ -5614,6 +5619,7 @@ PHP_FUNCTION(array_diff)
 		} else {
 			ZVAL_COPY(return_value, &args[0]);
 		}
+		PG(type_strictness) = bak;
 		return;
 	}
 
@@ -5631,9 +5637,6 @@ PHP_FUNCTION(array_diff)
 		ZVAL_COPY(return_value, &args[0]);
 		return;
 	}
-
-	int bak = PG(type_strictness);
-	PG(type_strictness) = 0;
 
 	ZVAL_NULL(&dummy);
 	/* create exclude map */
