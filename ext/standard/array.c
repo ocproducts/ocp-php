@@ -1720,7 +1720,12 @@ static inline void php_search_array(INTERNAL_FUNCTION_PARAMETERS, int behavior) 
    Checks if the given value exists in the array */
 PHP_FUNCTION(in_array)
 {
+	int bak = PG(type_strictness);
+	PG(type_strictness) = 0;
+
 	php_search_array(INTERNAL_FUNCTION_PARAM_PASSTHRU, 0);
+
+	PG(type_strictness) = bak;
 }
 /* }}} */
 
@@ -1728,7 +1733,12 @@ PHP_FUNCTION(in_array)
    Searches the array for a given value and returns the corresponding key if successful */
 PHP_FUNCTION(array_search)
 {
+	int bak = PG(type_strictness);
+	PG(type_strictness) = 0;
+
 	php_search_array(INTERNAL_FUNCTION_PARAM_PASSTHRU, 1);
+
+	PG(type_strictness) = bak;
 }
 /* }}} */
 
