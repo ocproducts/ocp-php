@@ -736,7 +736,7 @@ ZEND_FUNCTION(error_reporting)
 
 	old_error_reporting = EG(error_reporting);
 	if (ZEND_NUM_ARGS() != 0) {
-		zend_string *new_val = zval_get_string_noisy(err);
+		zend_string *new_val = zval_get_string_func_ex(err, 0);
 		do {
 			zend_ini_entry *p = EG(error_reporting_ini_entry);
 

@@ -174,6 +174,8 @@ try_again:
 					ZVAL_LONG(op, 0);
 					if (!silent) {
 						zend_error(E_WARNING, "A non-numeric value encountered");
+					} else {
+						ocp_type_strictness_error("A non-numeric value encountered");
 					}
 				}
 				zend_string_release_ex(str, 0);
@@ -247,6 +249,8 @@ static zend_always_inline zval* _zendi_convert_scalar_to_number_ex(zval *op, zva
 				ZVAL_LONG(holder, 0);
 				if (!silent) {
 					zend_error(E_WARNING, "A non-numeric value encountered");
+				} else {
+					ocp_type_strictness_error("A non-numeric value encountered");
 				}
 			}
 			return holder;
@@ -816,6 +820,10 @@ ZEND_API void multi_convert_to_string_ex(int argc, ...) /* {{{ */
 
 ZEND_API zend_long ZEND_FASTCALL zval_get_long_func_ex(zval *op, zend_bool silent, int strict) /* {{{ */
 {
+	// Usually silent is set to 0, PHP just has it for some very specific situations for calls via zval_get_long_func_noisy
+	// Usually strict is set to 1, because when we don't want type strictness we disable it by setting PG(type_strictness)=0 instead; there are Zend-engine situations where this is not possible though
+	// Note that silent is *effectively* ignored if strict==1 and PG(type_strictness)==1 (as error will just be shown as a type-strictness one instead or a normal zend_error!)
+
 try_again:
 	switch (Z_TYPE_P(op)) {
 		case IS_UNDEF:
@@ -843,6 +851,8 @@ try_again:
 				if (0 == (type = is_numeric_string(Z_STRVAL_P(op), Z_STRLEN_P(op), &lval, &dval, silent ? 1 : -1))) {
 					if (!silent) {
 						zend_error(E_WARNING, "A non-numeric value encountered");
+					} else {
+						ocp_type_strictness_error("A non-numeric value encountered");
 					}
 					return 0;
 				} else if (EXPECTED(type == IS_LONG)) {
@@ -887,7 +897,7 @@ ZEND_API zend_long ZEND_FASTCALL zval_get_long_func(zval *op) /* {{{ */
 
 ZEND_API zend_long ZEND_FASTCALL zval_get_long_func_noisy(zval *op) /* {{{ */
 {
-	return zval_get_long_func_ex(op, 0, 0);
+	return zval_get_long_func_ex(op, 0, 1);
 }
 /* }}} */
 
@@ -940,12 +950,6 @@ try_again:
 ZEND_API double ZEND_FASTCALL zval_get_double_func(zval *op) /* {{{ */
 {
 	return zval_get_double_func_ex(op, 1);
-}
-/* }}} */
-
-ZEND_API double ZEND_FASTCALL zval_get_double_func_noisy(zval *op) /* {{{ */
-{
-	return zval_get_double_func_ex(op, 0);
 }
 /* }}} */
 
@@ -1014,12 +1018,6 @@ try_again:
 ZEND_API zend_string* ZEND_FASTCALL zval_get_string_func(zval *op) /* {{{ */
 {
 	return zval_get_string_func_ex(op, 1);
-}
-/* }}} */
-
-ZEND_API zend_string* ZEND_FASTCALL zval_get_string_func_noisy(zval *op) /* {{{ */
-{
-	return zval_get_string_func_ex(op, 0);
 }
 /* }}} */
 

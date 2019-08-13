@@ -3165,13 +3165,13 @@ static ZEND_VM_COLD ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_CONST_H
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long_noisy(expr));
+			ZVAL_LONG(result, zval_get_long_func_ex(expr, /*silent=*/1, /*strict=*/0));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
+			ZVAL_DOUBLE(result, zval_get_double_func_ex(expr, 0));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string_noisy(expr));
+			ZVAL_STR(result, zval_get_string_func_ex(expr, 0));
 			break;
 		default:
 			if (IS_CONST & (IS_VAR|IS_CV)) {
@@ -18008,13 +18008,13 @@ static ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_TMP_HANDLER(ZEND_OPC
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long_noisy(expr));
+			ZVAL_LONG(result, zval_get_long_func_ex(expr, /*silent=*/1, /*strict=*/0));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
+			ZVAL_DOUBLE(result, zval_get_double_func_ex(expr, 0));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string_noisy(expr));
+			ZVAL_STR(result, zval_get_string_func_ex(expr, 0));
 			break;
 		default:
 			if (IS_TMP_VAR & (IS_VAR|IS_CV)) {
@@ -21015,13 +21015,13 @@ static ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_VAR_HANDLER(ZEND_OPC
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long_noisy(expr));
+			ZVAL_LONG(result, zval_get_long_func_ex(expr, /*silent=*/1, /*strict=*/0));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
+			ZVAL_DOUBLE(result, zval_get_double_func_ex(expr, 0));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string_noisy(expr));
+			ZVAL_STR(result, zval_get_string_func_ex(expr, 0));
 			break;
 		default:
 			if (IS_VAR & (IS_VAR|IS_CV)) {
@@ -37419,13 +37419,13 @@ static ZEND_OPCODE_HANDLER_RET ZEND_FASTCALL ZEND_CAST_SPEC_CV_HANDLER(ZEND_OPCO
 			ZVAL_BOOL(result, zend_is_true(expr));
 			break;
 		case IS_LONG:
-			ZVAL_LONG(result, zval_get_long_noisy(expr));
+			ZVAL_LONG(result, zval_get_long_func_ex(expr, /*silent=*/1, /*strict=*/0));
 			break;
 		case IS_DOUBLE:
-			ZVAL_DOUBLE(result, zval_get_double_noisy(expr));
+			ZVAL_DOUBLE(result, zval_get_double_func_ex(expr, 0));
 			break;
 		case IS_STRING:
-			ZVAL_STR(result, zval_get_string_noisy(expr));
+			ZVAL_STR(result, zval_get_string_func_ex(expr, 0));
 			break;
 		default:
 			if (IS_CV & (IS_VAR|IS_CV)) {
